@@ -1,0 +1,3 @@
+g++ ejemplo.c `pkg-config --cflags --libs gtk+-3.0`
+
+
