@@ -1,0 +1,5 @@
+build/
+*.o
+*.out
+*.exe
+gtk4-app
