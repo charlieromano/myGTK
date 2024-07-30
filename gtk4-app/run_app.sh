@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_PATH="/home/pi/gtk4-app/build/gtk4-app"
+APP_PATH="/home/charlieromano/myGTK/gtk4-app/build/gtk4-app"
 
 $APP_PATH &
 
