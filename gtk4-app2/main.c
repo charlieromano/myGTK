@@ -3,9 +3,9 @@
 
 #define BUTTON_PIN 17 // GPIO17 rpi
 
-static void read_gpio_state(GtkWodget *widget, gpointer data){
+static void read_gpio_state(GtkWidget *widget, gpointer data){
 	int state = gpioRead(BUTTON_PIN);
-	if (state == HIGH){
+	if (state == PI_HIGH){
 		g_print("GPIO HIGH\n");
 	}
 	else{
