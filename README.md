@@ -21,3 +21,10 @@ meson
 ninja 
 sudo ninja install
 
+
+## Raspberry Pi 4 
+
+meson build
+meson setup --reconfigure
+meson compile -C build
+

@@ -1,10 +1,10 @@
 #include <gtk/gtk.h>
-#include <wiringpi.h>
+#include <pigpio.h>
 
-#define BUTTON_PIN 0 // GPIO0, GPIO17 rpi
+#define BUTTON_PIN 17 // GPIO17 rpi
 
 static void read_gpio_state(GtkWodget *widget, gpointer data){
-	int state = digitalRead(BUTTON_PIN);
+	int state = gpioRead(BUTTON_PIN);
 	if (state == HIGH){
 		g_print("GPIO HIGH\n");
 	}
@@ -35,8 +35,8 @@ int main (int argc, char **argv){
 	GtkApplication *app;
 	int status;
 	
-	if (wiringPiSetup() == -1) {
-		g_print("wiringPi setup failed\n");
+	if (gpioInitialise() == -1) {
+		g_print("pigpio setup failed\n");
         return 1;
     }
 
