@@ -40,12 +40,14 @@ int main (int argc, char **argv){
         return 1;
     }
 
-	pinMode(BUTTON_PIN, INPUT);
-
+    gpioSetMode(BUTTON_PIN, PI_INPUT);
+	
 	app = gtk_application_new ("com.example.GtkApplication", G_APPLICATION_DEFAULT_FLAGS);
 	g_signal_connect (app, "activate", G_CALLBACK (on_activate), NULL);
 	status = g_application_run (G_APPLICATION (app), argc, argv);
 	g_object_unref (app);
+
+	gpioTerminate();
 	
 	return status;
 }
