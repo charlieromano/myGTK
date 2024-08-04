@@ -1,40 +1,48 @@
 #include <gtk/gtk.h>
+#include <glib/gstdio.h>
 
 static void
-print_hello (GtkWidget *widget, gpointer data){
-	g_print ("Hello world!\n");
+print_A (GtkWidget *widget, gpointer data){
+	g_print ("A\n");
+}
+static void
+print_B (GtkWidget *widget, gpointer data){
+	g_print ("B\n");
+}
+
+static void
+quit_cb (GtkWindow *window)
+{
+  gtk_window_close (window);
 }
 
 static void
 activate (GtkApplication *app, gpointer user_data){
 
-	GtkWidget *window;
-	GtkWidget *grid;
-	GtkWidget *button;
+	GtkBuilder *builder = gtk_builder_new();
+	gtk_builder_add_from_file (builder, "builder.ui", NULL);
 
-	window = gtk_application_window_new (app);
-	gtk_window_set_title (GTK_WINDOW (window), "Window");
+	GObject *window = gtk_builder_get_object (builder, "window");
+	gtk_window_set_application (GTK_WINDOW (window), app);
 
-	grid = gtk_grid_new();
+	GObject *button = gtk_builder_get_object (builder, "buttonA");
+	g_signal_connect (button, "clicked", G_CALLBACK (print_A), NULL);
 
-	gtk_window_set_child (GTK_WINDOW (window), grid);
+	button = gtk_builder_get_object (builder, "buttonB");
+	g_signal_connect (button, "clicked", G_CALLBACK (print_B), NULL);
 
-	button = gtk_button_new_with_label ("Button 1");
-	g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-	gtk_grid_attach (GTK_GRID (grid), button, 0,0,1,1);
+	button = gtk_builder_get_object (builder, "quit");
+	g_signal_connect (button, "clicked", G_CALLBACK (quit_cb), window);
 
-	button = gtk_button_new_with_label ("Button 2");
-	g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-	gtk_grid_attach (GTK_GRID (grid), button, 1,0,1,1);
+	gtk_widget_set_visible (GTK_WIDGET (window), TRUE);
 
-	button = gtk_button_new_with_label ("Quit");
-	g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_window_destroy), NULL);
-	gtk_grid_attach (GTK_GRID (grid), button, 0,1,2,1);
-
-	gtk_window_present (GTK_WINDOW (window) );
+	gtk_object_unref (builder);
 }
 
 int main (int argc, char **argv){
+#ifdef GTK_SRCDIR
+	g_chdir (GTK_SRCDIR);
+#endif
 
 	GtkApplication *app;
 	int status;
