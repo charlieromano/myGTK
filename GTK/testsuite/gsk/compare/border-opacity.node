@@ -1,7 +1,0 @@
-opacity {
-  opacity: 0.4;
-  child: border {
-    outline: 0 0 50 50;
-    widths: 5;
-  }
-}
