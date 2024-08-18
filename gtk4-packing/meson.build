@@ -7,7 +7,7 @@ gtk_dep = dependency('gtk4', version: '>=4.0')
 
 cc = meson.get_compiler('c')
 
-rt_lib = cc.find_library('rt', required:true)
+rt_lib = cc.find_library('rt', required:false)
 pthread_lib = cc.find_library('pthread', required:true)
 
 executable('gtk4-packing',
