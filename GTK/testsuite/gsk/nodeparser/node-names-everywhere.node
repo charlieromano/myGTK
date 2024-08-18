@@ -1,9 +1,0 @@
-"foo";
-container "foo" {
-  "foo";
-  container "foo" {
-    "foo";
-  }
-  "foo";
-}
-"foo";

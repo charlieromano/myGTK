@@ -1,5 +1,0 @@
-[wrap-git]
-directory=wayland-protocols
-url=https://gitlab.freedesktop.org/wayland/wayland-protocols.git
-revision=1.36
-depth=1
